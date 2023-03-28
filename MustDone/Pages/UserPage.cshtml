@@ -1,0 +1,105 @@
+﻿@page
+@model MustDone.Pages.UserPageModel
+@{
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Page</title>
+    <style>
+        /* Style for the uploaded photos */
+        .photo {
+            width: 300px;
+            margin-bottom: 20px;
+        }
+
+            .photo img {
+                width: 100%;
+            }
+
+        /* Style for the like and comment buttons */
+        .like, .comment {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Welcome to your User Page!</h1>
+        <form action="upload.php" method="post" enctype="multipart/form-data">
+            <label for="photo">Upload a Photo:</label>
+            <input type="file" name="photo" id="photo">
+            <br>
+            <input type="submit" value="Upload">
+        </form>
+    </div>
+    <hr>
+    <div id="photos">
+        <!-- Display uploaded photos here -->
+    </div>
+    <script src="~/js/site.js"></script>
+</body>
+</html>
+
+CSS:
+
+css
+
+
+
+JavaScript (in like-comment.js file):
+
+javascript
+
+// Get all like and comment buttons
+const likeButtons = document.querySelectorAll('.like');
+const commentButtons = document.querySelectorAll('.comment');
+
+// Attach click event listeners to each like and comment button
+likeButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    // Toggle the "liked" state of the button
+    button.classList.toggle('liked');
+  });
+});
+
+commentButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    // Get the input field and its value
+    const input = button.parentNode.querySelector('input[type="text"]');
+    const comment = input.value;
+
+    if (comment) {
+      // Create a new comment element and append to the comments list
+      const commentList = button.parentNode.parentNode.querySelector('.comments');
+      const newComment = document.createElement('li');
+      newComment.innerText = comment;
+      commentList.appendChild(newComment);
+
+      // Clear the input field
+      input.value = '';
+    }
+  });
+});
+
+PHP (in upload.php file):
+
+php
+
+<?php
+// Check if the photo has been uploaded successfully
+if ($_FILES['photo']['error'] == UPLOAD_ERR_OK) {
+  // Get the file name and temporary location
+  $fileName = $_FILES['photo']['name'];
+  $tmpLocation = $_FILES['photo']['tmp_name'];
+
+  // Move the file to a permanent location
+  move_uploaded_file($tmpLocation, "photos/$fileName");
+}
+?>
+
+Note: This is just a basic example code and you may need to customize it based on your specific requirements and security considerations.
+Was this response better or worse?

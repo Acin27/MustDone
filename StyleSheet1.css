@@ -1,0 +1,20 @@
+﻿body {
+    /* Style for the uploaded photos */
+    .photo
+
+{
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+.photo img {
+    width: 100%;
+}
+
+/* Style for the like and comment buttons */
+.like, .comment {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
